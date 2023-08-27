@@ -26,6 +26,26 @@ class SimpleSettingRepository extends RepositoryAbstract implements ISimpleSetti
     }
 
     /**
+     * 检查键名是否存在
+     *
+     * @Author nece001@163.com
+     * @DateTime 2023-08-27
+     *
+     * @param SimpleSettingEntity $entity
+     *
+     * @return boolean
+     */
+    public function exists(SimpleSettingEntity $entity): bool
+    {
+        $query = SimpleSetting::where('key_name', $entity->key_name);
+        if ($entity->id) {
+            $query->where('id', '<>', $entity->id);
+        }
+
+        return $query->count() > 0;
+    }
+
+    /**
      * 创建或更新
      *
      * @Author nece001@163.com
@@ -106,7 +126,7 @@ class SimpleSettingRepository extends RepositoryAbstract implements ISimpleSetti
         $list = $query->paginate($limit, false, array('list_rows' => $page, 'var_page' => 'page'));
 
         $pager = new Paginator($list->listRows(), $list->total(), $list->currentPage());
-        foreach($list as $item){
+        foreach ($list as $item) {
             $pager->addItem($this->modelToEntity($item));
         }
 
