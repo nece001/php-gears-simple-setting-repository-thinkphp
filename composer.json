@@ -1,0 +1,21 @@
+{
+    "name": "nece001/php-gears-simple-setting-repository-thinkphp",
+    "description": "PHP 简单设置的ThinkPHP存储实现",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Nece\\Gears\\Validate\\ThinkPHP\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "nece001",
+            "email": "nece001@163.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "nece001/php-gears-simple-setting": "^1.0"
+    }
+}
