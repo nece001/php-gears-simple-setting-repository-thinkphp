@@ -5,7 +5,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Nece\\Gears\\Validate\\ThinkPHP\\": "src/"
+            "Nece\\Gears\\SimpleSetting\\repository\\thinkphp\\": "src/"
         }
     },
     "authors": [
