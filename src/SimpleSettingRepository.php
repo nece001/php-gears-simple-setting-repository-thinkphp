@@ -103,7 +103,7 @@ class SimpleSettingRepository extends RepositoryAbstract implements ISimpleSetti
             $query->whereLike('title|key_name', '%' . $params['keyword'] . '%');
         }
 
-        $list = $query->paginate($limit, array('list_rows' => $page, 'var_page' => 'page'));
+        $list = $query->paginate($limit, false, array('list_rows' => $page, 'var_page' => 'page'));
 
         $pager = new Paginator($list->listRows(), $list->total(), $list->currentPage());
         foreach($list as $item){
