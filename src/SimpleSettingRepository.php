@@ -7,6 +7,7 @@ use Nece\Gears\RepositoryAbstract;
 use Nece\Gears\SimpleSetting\Entity\SimpleSettingEntity;
 use Nece\Gears\SimpleSetting\Repository\ISimpleSettingRepository;
 use Nece\Gears\SimpleSetting\Repository\ThinkPHP\Model\SimpleSetting;
+use think\facade\Cache;
 
 class SimpleSettingRepository extends RepositoryAbstract implements ISimpleSettingRepository
 {
@@ -112,11 +113,20 @@ class SimpleSettingRepository extends RepositoryAbstract implements ISimpleSetti
      *
      * @return SimpleSettingEntity
      */
-    public function findByKeyName(string $key_name): SimpleSettingEntity
+    public function findByKeyName(string $key_name): ?SimpleSettingEntity
     {
-        $item = SimpleSetting::where('key_name', $key_name)->find();
-        if ($item) {
-            return $this->modelToEntity($item);
+        $data = Cache::get('__simple_setting_cache__');
+        if (true) {
+            $data = array();
+            $items = SimpleSetting::select();
+            foreach ($items as $item) {
+                $data[$item->key_name] = $item;
+            }
+            Cache::set('__simple_setting_cache__', $data);
+        }
+
+        if (isset($data[$key_name])) {
+            return $this->modelToEntity($data[$key_name]);
         }
         return null;
     }
