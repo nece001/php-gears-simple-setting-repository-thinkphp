@@ -103,6 +103,25 @@ class SimpleSettingRepository extends RepositoryAbstract implements ISimpleSetti
     }
 
     /**
+     * 用争名查询一个实体
+     *
+     * @Author nece001@163.com
+     * @DateTime 2023-09-02
+     *
+     * @param string $key_name
+     *
+     * @return SimpleSettingEntity
+     */
+    public function findByKeyName(string $key_name): SimpleSettingEntity
+    {
+        $item = SimpleSetting::where('key_name', $key_name)->find();
+        if ($item) {
+            return $this->modelToEntity($item);
+        }
+        return null;
+    }
+
+    /**
      * 分页列表
      *
      * @Author nece001@163.com
