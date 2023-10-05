@@ -47,7 +47,7 @@ class SimpleSettingRepository extends RepositoryAbstract implements ISimpleSetti
     }
 
     /**
-     * 创建或更新
+     * 创建或更新（只更新记录不更新值）
      *
      * @Author nece001@163.com
      * @DateTime 2023-08-27
@@ -64,24 +64,49 @@ class SimpleSettingRepository extends RepositoryAbstract implements ISimpleSetti
 
         if (!isset($item)) {
             $item = new SimpleSetting();
-
-            $item->is_hidden = $entity->is_hidden;
-            $item->is_disabled = $entity->is_disabled;
-            $item->is_require = $entity->is_require;
-            $item->sort = $entity->sort;
-            $item->title = $entity->title;
-            $item->note = $entity->note;
-            $item->input_type = $entity->input_type;
-            $item->value_type = $entity->value_type;
-            $item->key_name = $entity->key_name;
-            $item->key_value = $entity->key_value;
-            $item->default_value = $entity->default_value;
-            $item->options = $entity->options;
-
-            $item->save();
         }
 
+        $item->is_hidden = $entity->is_hidden;
+        $item->is_disabled = $entity->is_disabled;
+        $item->is_require = $entity->is_require;
+        $item->sort = $entity->sort;
+        $item->title = $entity->title;
+        $item->note = $entity->note;
+        $item->input_type = $entity->input_type;
+        $item->value_type = $entity->value_type;
+        $item->key_name = $entity->key_name;
+        $item->default_value = $entity->default_value;
+        $item->options = $entity->options;
+
+        $item->save();
+
+
         return $item->id;
+    }
+
+    /**
+     * 设置值
+     *
+     * @Author nece001@163.com
+     * @DateTime 2023-10-05
+     *
+     * @param SimpleSettingEntity $entity
+     *
+     * @return integer
+     */
+    public function setValue(SimpleSettingEntity $entity): int
+    {
+        if ($entity->id) {
+            $item = SimpleSetting::where('id', $entity->id)->find();
+        }
+
+        if ($item) {
+            $item->key_value = $entity->key_value;
+            $item->save();
+            return $entity->id;
+        }
+
+        return 0;
     }
 
     /**
