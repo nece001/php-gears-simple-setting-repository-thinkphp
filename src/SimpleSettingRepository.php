@@ -119,7 +119,7 @@ class SimpleSettingRepository extends RepositoryAbstract implements ISimpleSetti
      *
      * @return SimpleSettingEntity
      */
-    public function find(int $id): SimpleSettingEntity
+    public function find(int $id): ?SimpleSettingEntity
     {
         $item = SimpleSetting::where('id', $id)->find();
         if ($item) {
