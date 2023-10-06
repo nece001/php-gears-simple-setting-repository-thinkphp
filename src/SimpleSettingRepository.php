@@ -173,7 +173,7 @@ class SimpleSettingRepository extends RepositoryAbstract implements ISimpleSetti
 
         $query = SimpleSetting::order('id', 'DESC');
 
-        if ($this->valid($params, 'keyword')) {
+        if ($this->hasValue($params, 'keyword')) {
             $query->whereLike('title|key_name', '%' . $params['keyword'] . '%');
         }
 
